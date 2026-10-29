@@ -2,3 +2,7 @@ __pycache__/
 *.py[cod]
 /data/
 /admin.local.xml
+.env
+.venv/
+venv/
+data/election.sqlite3
