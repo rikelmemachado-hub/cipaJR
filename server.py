@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent
 DATABASE = Path(os.environ.get("CIPA_DATABASE", ROOT / "data" / "election.sqlite3"))
 HOST = os.environ.get("CIPA_HOST", "127.0.0.1")
-PORT = int(os.environ.get("CIPA_PORT", "3000"))
+PORT = int(os.environ.get("PORT", os.environ.get("CIPA_PORT", "3000")))
 ADMIN_EMAIL = os.environ.get("CIPA_ADMIN_EMAIL", "").strip().casefold()
 ADMIN_PASSWORD = os.environ.get("CIPA_ADMIN_PASSWORD", "")
 PUBLIC_ORIGIN = os.environ.get("CIPA_PUBLIC_ORIGIN", "").rstrip("/")
