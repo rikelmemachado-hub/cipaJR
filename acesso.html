@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#164a3b">
+  <meta name="description" content="Acesso à eleição digital da CIPA.">
+  <title>Acesso CIPA | Eleição digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #164a3b;
+      --forest-deep: #10382e;
+      --mint: #e7f1e9;
+      --paper: #f6f8f4;
+      --white: #fff;
+      --ink: #182722;
+      --muted: #68766f;
+      --line: #e1e8e1;
+      --lime: #d6ee72;
+      --coral: #e9775d;
+      --shadow: 0 18px 50px rgb(22 52 39 / 8%);
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    * { box-sizing: border-box; }
+    body { min-width: 320px; min-height: 100vh; margin: 0; }
+    button, input, textarea { font: inherit; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    .topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100vw - 1160px) / 2)); border-bottom: 1px solid var(--line); background: white; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--forest-deep); font: 800 18px Manrope, sans-serif; text-decoration: none; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; background: var(--forest); color: var(--lime); font-size: 15px; }
+    .demo-label { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border-radius: 3px; background: #fff5df; color: #76551b; font-size: 12px; font-weight: 700; }
+    .demo-label::before { width: 7px; height: 7px; border-radius: 50%; background: #d99d32; content: ""; }
+    main { max-width: 1160px; margin: 0 auto; padding: 38px 24px 68px; }
+    .login-shell { max-width: 970px; min-height: 500px; display: grid; grid-template-columns: 1fr 1fr; margin: 5px auto 0; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: white; box-shadow: var(--shadow); }
+    .login-aside { position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 34px; background: var(--forest); color: white; }
+    .login-aside::after { position: absolute; right: -110px; bottom: -150px; width: 360px; height: 360px; border: 1px solid rgb(255 255 255 / 17%); border-radius: 50%; content: ""; box-shadow: 0 0 0 34px rgb(255 255 255 / 4%), 0 0 0 72px rgb(255 255 255 / 3%); }
+    .login-aside > * { position: relative; z-index: 1; }
+    .login-aside .brand { color: white; }
+    .login-aside .brand-mark { background: var(--lime); color: var(--forest); }
+    .aside-copy { max-width: 370px; margin: 50px 0; }
+    .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; color: var(--forest); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .eyebrow::before { width: 21px; height: 1px; background: var(--coral); content: ""; }
+    .login-aside .eyebrow { color: var(--lime); }
+    .login-aside h1 { margin: 0 0 13px; font: 800 30px/1.2 Manrope, sans-serif; }
+    .login-aside p { margin: 0; color: #d1dfd6; font-size: 14px; line-height: 1.65; }
+    .aside-note { color: #d1dfd6; font-size: 11px; line-height: 1.5; }
+    .login-panel { align-self: center; padding: 40px; }
+    .login-panel h2 { margin: 0 0 8px; font: 700 23px Manrope, sans-serif; }
+    .login-panel > p { margin: 0 0 22px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .role-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 23px; padding: 4px; border-radius: 4px; background: var(--paper); }
+    .role-switch button { min-height: 42px; border: 0; border-radius: 3px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; }
+    .role-switch button[aria-pressed="true"] { background: white; color: var(--forest); box-shadow: 0 1px 5px rgb(22 52 39 / 10%); }
+    .form-stack { display: grid; gap: 13px; }
+    .field { display: grid; gap: 6px; color: #35463c; font-size: 12px; font-weight: 600; }
+    .field input, .field textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #ccd7ce; border-radius: 3px; background: white; color: var(--ink); font: 400 14px "DM Sans", sans-serif; }
+    .field textarea { min-height: 82px; resize: vertical; }
+    .field input:focus, .field textarea:focus { border-color: var(--forest); outline: 2px solid rgb(22 74 59 / 12%); }
+    .primary-button { min-height: 46px; padding: 0 15px; border: 0; border-radius: 3px; background: var(--forest); color: white; font-weight: 700; cursor: pointer; }
+    .primary-button:hover { background: var(--forest-deep); }
+    .message { min-height: 16px; margin: 0; color: #a13b2b; font-size: 12px; line-height: 1.4; }
+    .demo-warning { margin: 16px 0 0 !important; padding: 11px 12px; border-left: 2px solid #d99d32; background: #fff7e8; color: #705528 !important; font-size: 11px !important; }
+    .admin-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
+    .admin-heading h1 { margin: 0 0 7px; font: 800 31px Manrope, sans-serif; }
+    .admin-heading p { margin: 0; color: var(--muted); font-size: 14px; }
+    .logout-button { min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 3px; background: white; color: var(--forest); font-weight: 700; cursor: pointer; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 22px; border-block: 1px solid var(--line); background: #edf3ed; }
+    .stat { padding: 14px 18px; }
+    .stat + .stat { border-left: 1px solid var(--line); }
+    .stat span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 11px; }
+    .stat strong { color: var(--forest); font: 700 21px Manrope, sans-serif; }
+    .admin-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+    .tool { min-width: 0; padding: 21px; border: 1px solid var(--line); border-radius: 4px; background: white; }
+    .tool h2 { margin: 0 0 5px; font: 700 17px Manrope, sans-serif; }
+    .tool > p { margin: 0 0 17px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .tool .primary-button { width: 100%; }
+    .entry-list { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .entry-list:empty { display: none; }
+    .entry { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .entry-copy { min-width: 0; }
+    .entry-copy strong { display: block; overflow-wrap: anywhere; font-size: 12px; }
+    .entry-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .remove-button { flex: 0 0 auto; padding: 5px 7px; border: 0; background: transparent; color: #a13b2b; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .admin-grid .election-tool, .admin-grid .results-tool { grid-column: 1 / -1; }
+    .admin-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .admin-actions .primary-button { width: auto; }
+    .admin-actions .secondary-button { min-height: 46px; padding: 0 15px; border: 1px solid var(--line); border-radius: 3px; background: white; color: var(--forest); font-weight: 700; cursor: pointer; }
+    .help-panel { margin: 0 0 20px; border: 1px solid var(--line); border-radius: 4px; background: white; }
+    .help-panel summary { padding: 14px 18px; color: var(--forest); font-size: 14px; font-weight: 700; cursor: pointer; }
+    .help-content { padding: 0 18px 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .help-content ol, .help-content ul { margin: 8px 0 0; padding-left: 21px; }
+    .history-list { display: grid; gap: 15px; margin-top: 14px; }
+    .history-item { padding-top: 12px; border-top: 1px solid var(--line); }
+    .history-item h3 { margin: 0; color: var(--forest); font: 700 15px Manrope, sans-serif; }
+    .history-item p { margin: 5px 0; color: var(--muted); font-size: 12px; }
+    .credential-box { margin-top: 14px; padding: 14px; border: 1px solid #d6e5bc; border-radius: 3px; background: #f4f9ea; color: var(--forest-deep); font-size: 12px; line-height: 1.5; }
+    .credential-box strong { display: block; margin-top: 7px; font-size: 17px; letter-spacing: .06em; overflow-wrap: anywhere; }
+    .credential-box:empty { display: none; }
+    .result-list { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+    .result-list li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .result-summary { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+    .empty-list { margin: 18px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .employee-welcome { max-width: 660px; margin: 50px auto; padding: 38px; border: 1px solid var(--line); border-radius: 5px; background: white; box-shadow: var(--shadow); text-align: center; }
+    .welcome-mark { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 18px; border-radius: 50%; background: var(--mint); color: var(--forest); font-size: 23px; }
+    .employee-welcome h1 { margin: 0 0 8px; font: 800 25px Manrope, sans-serif; }
+    .employee-welcome p { margin: 0 auto 20px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .vote-link { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px; border-radius: 3px; background: var(--forest); color: white; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .footnote { margin: 18px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .hidden { display: none !important; }
+    @media (max-width: 760px) {
+      .login-shell { min-height: 0; }
+      .login-panel { padding: 30px; }
+      .admin-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .stat + .stat { border-top: 1px solid var(--line); border-left: 0; }
+    }
+    @media (max-width: 580px) {
+      .topbar { height: 64px; padding: 0 18px; }
+      main { padding: 22px 16px 45px; }
+      .login-shell { display: flex; flex-direction: column; }
+      .login-aside { min-height: 218px; padding: 22px; }
+      .aside-copy { margin: 25px 0 18px; }
+      .login-aside h1 { max-width: 380px; font-size: 24px; }
+      .login-aside p { font-size: 12px; }
+      .aside-note { display: none; }
+      .login-panel { padding: 25px 21px; }
+      .admin-heading h1 { font-size: 26px; }
+      .admin-heading p { max-width: 250px; font-size: 12px; }
+      .tool { padding: 18px; }
+      .employee-welcome { margin: 24px auto; padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="acesso.html" aria-label="CIPA, início"><span class="brand-mark" aria-hidden="true">C</span><span>CIPA<span style="color:var(--coral)">.</span></span></a>
+    <span class="demo-label">Eleição digital</span>
+  </header>
+
+  <main>
+    <section class="login-shell" id="loginView" aria-labelledby="loginTitle">
+      <div class="login-aside">
+        <a class="brand" href="acesso.html" aria-label="CIPA, início"><span class="brand-mark" aria-hidden="true">C</span><span>CIPA<span style="color:var(--coral)">.</span></span></a>
+        <div class="aside-copy">
+          <div class="eyebrow">Eleição CIPA</div>
+          <h1 id="loginTitle">Participação que melhora o dia a dia.</h1>
+          <p>Acesse a votação ou os cadastros da Comissão Interna de Prevenção de Acidentes.</p>
+        </div>
+        <div class="aside-note">Acesso individual para eleitores e administradores.</div>
+      </div>
+      <div class="login-panel">
+        <h2>Entrar na plataforma</h2>
+        <p>Escolha como deseja acessar. No primeiro acesso, crie a conta de administrador.</p>
+        <div class="role-switch" id="roleSwitch" aria-label="Tipo de acesso">
+          <button type="button" data-role="employee" aria-pressed="true">Funcionário</button>
+          <button type="button" data-role="admin" aria-pressed="false">Administrador</button>
+        </div>
+        <form id="employeeLoginForm" class="form-stack">
+          <label class="field" for="employeeRegistration">Matrícula
+            <input id="employeeRegistration" name="registration" autocomplete="username" required maxlength="30" placeholder="Matrícula cadastrada">
+          </label>
+          <label class="field" for="employeeCode">Código individual de votação
+            <input id="employeeCode" name="code" type="password" autocomplete="one-time-code" required maxlength="40" placeholder="Código entregue pelo administrador">
+          </label>
+          <p class="message" id="employeeLoginMessage" role="status"></p>
+          <button class="primary-button" type="submit">Acessar votação</button>
+        </form>
+        <form id="adminLoginForm" class="form-stack hidden">
+          <label class="field" for="adminEmail">E-mail de acesso
+            <input id="adminEmail" name="email" type="email" autocomplete="email" required placeholder="nome@empresa.com">
+          </label>
+          <label class="field" for="adminPassword">Senha
+            <input id="adminPassword" name="password" type="password" autocomplete="current-password" required maxlength="200">
+          </label>
+          <p class="message" id="adminLoginMessage" role="status"></p>
+          <button class="primary-button" type="submit">Acessar administração</button>
+        </form>
+        <form id="adminSetupForm" class="form-stack hidden">
+          <label class="field" for="adminSetupName">Nome do administrador
+            <input id="adminSetupName" name="name" autocomplete="name" required maxlength="100" placeholder="Seu nome">
+          </label>
+          <label class="field" for="adminSetupEmail">E-mail de acesso
+            <input id="adminSetupEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@empresa.com">
+          </label>
+          <label class="field" for="adminSetupPassword">Crie uma senha
+            <input id="adminSetupPassword" name="password" type="password" autocomplete="new-password" required minlength="14" maxlength="200" aria-describedby="adminPasswordHint">
+          </label>
+          <label class="field" for="adminSetupPasswordConfirm">Confirme a senha
+            <input id="adminSetupPasswordConfirm" name="passwordConfirm" type="password" autocomplete="new-password" required minlength="14" maxlength="200">
+          </label>
+          <p class="message" id="adminSetupMessage" role="status"></p>
+          <p class="demo-warning" id="adminPasswordHint">Use pelo menos 14 caracteres. A primeira conta criada terá acesso de administrador.</p>
+          <button class="primary-button" type="submit">Criar conta e acessar</button>
+        </form>
+        <p class="demo-warning">Use somente o endereço oficial da eleição e proteja seu código individual de votação.</p>
+      </div>
+    </section>
+
+    <section class="hidden" id="adminView" aria-labelledby="adminTitle">
+      <div class="admin-heading">
+        <div><div class="eyebrow">Área administrativa</div><h1 id="adminTitle">Cadastros e votação</h1><p>Cadastre o eleitorado e as candidaturas antes de abrir a votação.</p></div>
+        <button class="logout-button" id="logoutButton" type="button">Sair</button>
+      </div>
+      <details class="help-panel">
+        <summary>Ajuda do administrador</summary>
+        <div class="help-content">
+          <p>Como preparar e conduzir uma eleição:</p>
+          <ol>
+            <li>Cadastre cada funcionário e entregue o código individual exibido após o cadastro por um canal privado.</li>
+            <li>Cadastre os candidatos e confira os nomes e propostas antes de abrir.</li>
+            <li>Clique em <strong>Abrir votação</strong>. Depois disso, os cadastros ficam bloqueados.</li>
+            <li>Quando o período de votação terminar, clique em <strong>Encerrar votação</strong> para liberar a apuração.</li>
+            <li>Após conferir os resultados, use <strong>Iniciar nova eleição</strong> para começar outro processo. A nova eleição começa sem cadastros; os resultados anteriores continuam no histórico.</li>
+          </ol>
+        </div>
+      </details>
+      <div class="stats" aria-label="Resumo da eleição">
+        <div class="stat"><span>Eleitores cadastrados</span><strong id="employeeTotal">0</strong></div>
+        <div class="stat"><span>Candidaturas</span><strong id="candidateTotal">0</strong></div>
+        <div class="stat"><span>Status</span><strong id="electionStatus">Preparação</strong></div>
+      </div>
+      <div class="admin-grid">
+        <section class="tool" aria-labelledby="employeeFormTitle">
+          <h2 id="employeeFormTitle">Cadastrar funcionário</h2>
+          <p>Ao cadastrar, será gerado um código individual. Entregue-o ao funcionário por um canal privado.</p>
+          <form id="employeeForm" class="form-stack">
+            <label class="field" for="newEmployeeName">Nome completo<input id="newEmployeeName" name="name" required maxlength="80" placeholder="Nome do funcionário"></label>
+            <label class="field" for="newEmployeeRegistration">Matrícula<input id="newEmployeeRegistration" name="registration" required maxlength="30" placeholder="Ex.: 2026001"></label>
+            <label class="field" for="newEmployeeSector">Setor<input id="newEmployeeSector" name="sector" required maxlength="60" placeholder="Ex.: Produção"></label>
+            <p class="message" id="employeeFormMessage" role="status"></p>
+            <button class="primary-button" type="submit">Cadastrar funcionário</button>
+            <div class="credential-box" id="employeeCredential" role="status" aria-live="polite"></div>
+          </form>
+          <ul class="entry-list" id="employeeList" aria-label="Funcionários cadastrados"></ul>
+          <p class="empty-list" id="employeeEmpty">Nenhum funcionário cadastrado.</p>
+        </section>
+        <section class="tool" aria-labelledby="candidateFormTitle">
+          <h2 id="candidateFormTitle">Cadastrar candidato</h2>
+          <p>Informe os dados e a proposta que será apresentada aos eleitores.</p>
+          <form id="candidateForm" class="form-stack">
+            <label class="field" for="newCandidateName">Nome completo<input id="newCandidateName" name="name" required maxlength="80" placeholder="Nome do candidato"></label>
+            <label class="field" for="newCandidateRole">Cargo ou função<input id="newCandidateRole" name="role" required maxlength="80" placeholder="Ex.: Técnica de Segurança"></label>
+            <label class="field" for="newCandidatePitch">Proposta<textarea id="newCandidatePitch" name="pitch" required maxlength="220" placeholder="O que pretende realizar na CIPA?"></textarea></label>
+            <p class="message" id="candidateFormMessage" role="status"></p>
+            <button class="primary-button" type="submit">Cadastrar candidato</button>
+          </form>
+          <ul class="entry-list" id="candidateList" aria-label="Candidatos cadastrados"></ul>
+          <p class="empty-list" id="candidateEmpty">Nenhum candidato cadastrado.</p>
+        </section>
+      </div>
+      <section class="tool election-tool" aria-labelledby="electionControlTitle">
+        <h2 id="electionControlTitle">Controle da votação</h2>
+        <p id="electionControlMessage">Cadastre e confira os dados antes de iniciar. Depois de aberta, a eleição não pode ser reaberta após o encerramento.</p>
+        <div class="admin-actions">
+          <button class="primary-button" id="openElectionButton" type="button">Abrir votação</button>
+          <button class="secondary-button" id="closeElectionButton" type="button">Encerrar votação</button>
+          <button class="secondary-button" id="newElectionButton" type="button">Iniciar nova eleição</button>
+        </div>
+      </section>
+      <section class="tool results-tool hidden" id="resultsPanel" aria-labelledby="resultsTitle">
+        <h2 id="resultsTitle">Apuração final</h2>
+        <ul class="result-list" id="resultList"></ul>
+        <p class="result-summary" id="resultSummary"></p>
+      </section>
+      <section class="tool results-tool hidden" id="historyPanel" aria-labelledby="historyTitle">
+        <h2 id="historyTitle">Histórico de eleições</h2>
+        <div class="history-list" id="historyList"></div>
+      </section>
+      <p class="footnote">Os votos são armazenados sem vínculo com a identidade do eleitor. O servidor controla o voto único, a abertura e o encerramento. Esta aplicação não é certificação de conformidade legal; valide o processo com a comissão eleitoral e assessoria responsável antes de uma eleição oficial.</p>
+    </section>
+
+    <section class="employee-welcome hidden" id="employeeView" aria-labelledby="employeeTitle">
+      <details class="help-panel">
+        <summary>Ajuda do eleitor</summary>
+        <div class="help-content">
+          <ol>
+            <li>Use o botão <strong>Abrir urna</strong> para acessar a cédula.</li>
+            <li>Escolha um candidato ou a opção <strong>Votar em branco</strong>, depois clique em <strong>Revisar meu voto</strong>. Você ainda pode voltar antes de confirmar.</li>
+            <li>Confira a escolha e clique em <strong>Confirmar voto</strong>. Depois da confirmação, não é possível alterar o voto.</li>
+            <li>Você pode votar apenas uma vez. Guarde o protocolo exibido ao final como comprovante de registro; ele não identifica sua escolha.</li>
+          </ol>
+          <p>Se a votação ainda não estiver aberta ou você tiver dificuldade, procure o administrador da eleição. Não compartilhe seu código individual.</p>
+        </div>
+      </details>
+      <div class="welcome-mark" aria-hidden="true">✓</div>
+      <div class="eyebrow" style="justify-content:center">Acesso de funcionário</div>
+      <h1 id="employeeTitle">Olá, <span id="employeeName"></span>.</h1>
+      <p>Seu acesso foi confirmado. O sistema permite um único voto por matrícula cadastrada e não associa sua identidade à escolha.</p>
+      <a class="vote-link" href="index.html">Abrir urna</a>
+      <p class="message" id="employeeLogoutMessage" role="status"></p>
+      <p class="footnote"><button class="remove-button" id="employeeLogout" type="button">Voltar para a entrada</button></p>
+    </section>
+  </main>
+
+  <script src="acesso.js"></script>
+
+</body>
+</html>
